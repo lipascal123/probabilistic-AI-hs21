@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 4 - Reinforcement Learning</title>
+    
+    <link href="task_description_files/css.css" rel="stylesheet">
+    
+    
+
+    <link href="task_description_files/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="task_description_files/bootstrap-theme.css" rel="stylesheet" type="text/css">
+    <link href="task_description_files/custom.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="task_description_files/font-awesome.css">
+    <link rel="shortcut icon" href="https://project.las.ethz.ch/static/img/favicon.ico">
+    <script src="task_description_files/MathJax.js" id="">
+</script>
+    
+  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+  <body class="bgbody bodypadding"><div id="MathJax_Message" style="display: none;"></div>
+    
+    <script src="task_description_files/jquery-1.js" type="text/javascript"></script>
+    <script src="task_description_files/bootstrap.js" type="text/javascript"></script>
+    
+    
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://project.las.ethz.ch/">PAI21 Project</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav">
+        <li class=""><a href="https://project.las.ethz.ch/">
+	    <i class="fa fa-home" aria-hidden="true"></i> Overview
+	  </a>
+	</li>
+	
+	
+	
+	<li class="">
+	  <a href="https://project.las.ethz.ch/task0/" class="cleanlink"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i> Task 0 </a>
+	</li>
+	
+	
+	
+	
+	<li class="">
+	  <a href="https://project.las.ethz.ch/task1/" class="cleanlink"><i class="fa fa-check" aria-hidden="true"></i> Task 1 </a>
+	</li>
+	
+	
+	
+	
+	<li class="">
+	  <a href="https://project.las.ethz.ch/task2/" class="cleanlink"><i class="fa fa-check" aria-hidden="true"></i> Task 2 </a>
+	</li>
+	
+	
+	
+	
+	<li class="">
+	  <a href="https://project.las.ethz.ch/task3/" class="cleanlink"><i class="fa fa-check" aria-hidden="true"></i> Task 3 </a>
+	</li>
+	
+	
+	
+	
+	<li class="active">
+	  <a href="https://project.las.ethz.ch/task4/" class="cleanlink"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i> Task 4 </a>
+	</li>
+	
+	
+	<li><a href="https://project.las.ethz.ch/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+
+  </div>
+</nav>
+<!-- Main content -->
+<div class="container fill" role="main">
+
+  
+<script>
+  $(document).ready(function() {
+  // show active tab on reload
+  if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
+
+  // remember the hash in the URL without jumping
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+  if(history.pushState) {
+  history.pushState(null, null, '#'+$(e.target).attr('href').substr(1));
+  } else {
+  location.hash = '#'+$(e.target).attr('href').substr(1);
+  }
+  });
+  });
+</script>
+
+<div class="jumbotron">
+  <h1 data-toc-skip=""><i class="fa fa-tasks " aria-hidden="true"></i> Task 4 - Reinforcement Learning</h1>
+  <p>Implementing a policy gradient algorithm.</p>
+</div>
+
+
+<div class="alert alert-warning" role="alert">
+  You are in the group <i class="fa fa-users fa-fw" aria-hidden="true"></i> Bayesship consisting of <i class="fa fa-user"></i> lipascal (<a href="mailto://[u'lipascal@student.ethz.ch']">lipascal@student.ethz.ch</a>),  <i class="fa fa-user"></i> patakiz (<a href="mailto://[u'patakiz@student.ethz.ch']">patakiz@student.ethz.ch</a>) and  <i class="fa fa-user"></i> timoscho (<a href="mailto://[u'timoscho@student.ethz.ch']">timoscho@student.ethz.ch</a>).
+</div>
+
+<div class="panel">
+  <!-- <div class="panel-body"> -->
+  <ul class="nav  nav-pills nav-justified">
+    <li class="active">
+      <a href="#description" data-toggle="tab"><h4><i class="fa fa-book fa-fw fa-1x" aria-hidden="true"></i> 1. Read the task description</h4></a>
+    </li>
+    <li><a href="#submission" data-toggle="tab"><h4><i class="fa fa-laptop fa-fw fa-1x" aria-hidden="true"></i> 2. Submit solutions</h4></a>
+    </li>
+    <li><a href="#handin" data-toggle="tab"><h4><i class="fa fa-envelope fa-fw fa-1x" aria-hidden="true"></i> 3. Hand in final solution</h4></a>
+    </li>
+  </ul>
+  <!-- </div> -->
+</div>
+<div class="tab-content &lt;/i&gt;">
+  <div class="tab-pane active" id="description">
+    <div class="panel panel-default">
+      <div class="panel-body">
+	<h2><i class="fa fa-book fa-fw" aria-hidden="true"></i> 1. Task description </h2>
+	<h4>Task</h4>
+<p>In this project you will implement a reinforcement learning (RL) 
+algorithm for playing a variant of a game called “lunar lander”.</p>
+<p style="text-align:center"><img src="task_description_files/lunar_lander.png"></p>
+
+
+<p>In the lunar lander environment, a <em>lander</em> must be controlled
+ to land between two flags on the ground. When controlling the lander, 
+the goal is to successfully land upright on its two legs, between the 
+flags and in a limited timeframe, whilst expending minimal fuel. Your 
+task is to implement an algorithm that, by practicing on a simulator, 
+learns a control policy for the lander. </p>
+<p>The <code>.pdf</code> of the handout contains the following 
+additional sections. Environment and Scoring Details will give a more 
+thorough description of the Lunar Lander environment, along with the 
+requirements for passing the baseline. Solution Details will guide you 
+through a set of minimal modifications to <code>solution.py</code> for 
+passing the task baseline. We also provide an appendix on policy 
+gradients which will briefly review the lecture material and give you 
+the additional information needed for completing the TODOs in the code 
+for this task. </p>
+
+
+<h4>Evaluation </h4>
+<p> When you run <code>runner.sh</code> with docker running, your 
+algorithm will first train. Then, the resulting policy will be evaluated
+ on a modified lunar lander environment. This modified environment will 
+be different every time the code is run and unknown to you. The modified
+ task will always have the same difficulty and the same size of state 
+and action space. When <code>runner.sh</code> has finished, a visualization of your final policy in an episode at evaluation time is saved to a <code>.mp4</code> file. <code>runner.sh</code> will also generate the <code>.byte</code> score file you need to upload to the leaderboard. </p>
+
+<p>To pass the baseline for this task you will need to achieve a final 
+score of 100. Please see the handout linked below for more information 
+on how reward is computed. There is no public-private split for this 
+task. The leaderboard is sorted by highest score. </p>
+
+
+<h4>Submission workflow</h4>
+<ol>
+    <li> Install and start <a href="https://www.docker.com/get-started">Docker</a>.
+ Understanding how Docker works and how to use it is beyond the scope of
+ the project. Nevertheless, if you are interested, you could read about 
+its <a href="https://www.docker.com/use-cases">use cases</a>.</li>
+    <li> <a href="https://project.las.ethz.ch/static/task4_handout_bpl2jow6.zip" class="btn btn-primary">Download
+	handout</a></li>
+    <li> The handout contains the solution template <code>solution.py</code>. You can write your code at the <code># TODO</code> markers in the solution template. You are encouraged make further changes after passing provided that the interface for the <code>agent</code> class remains the same. 
+    Note: The <code>main()</code> method in the solution template is <em>for your own testing only</em> and <em>completely ignored</em> by the checker!</li>
+    <li> You should use Python 3.8. You are free to use any other 
+libraries that are not already imported in the solution template. 
+Important: please make sure that you list these additional libraries 
+together with their versions in the <code>requirements.txt</code> file provided in the handout.</li>
+    <li> Once you have implemented your solution, run the checker in Docker:
+        <ul>
+            <li>
+                On Linux, run <code>bash runner.sh</code>.
+                In some cases, you might need to
+                <a href="https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user">enable Docker for your user</a>
+                if you see a Docker permission denied error.
+            </li>
+            <li> 
+                If you are using MacOS, run <code>bash runner.sh</code>. Docker might by default restrict how much memory your solution may use.
+                Running over the memory limit will result in docker writing "Killed" to the terminal.
+                If you encounter out-of-memory issues you can increase the limits as described in the
+                <a href="https://docs.docker.com/desktop/mac/">Docker Desktop for Mac user manual</a>.
+ We do not support ARM-based M1 MacBooks. If you own such a device, you 
+can resort to the Euler cluster. Please follow the guide specified by <em>euler-guide.html</em> in the handout. </li>
+                <li> if you are using Windows, open a PowerShell, change the directory to the handout folder and run <code>docker build --tag task4 .; docker run --rm -v "$(pwd):/results" task4</code>
+            </li>
+            <li>
+                On Windows, open a PowerShell, change the directory to the handout folder,
+                and run <code>docker build --tag task4 .; docker run --rm -v "$(pwd):/results" task4</code>.
+            </li>
+        </ul>
+    </li>
+    <li>Every time you run the checker in docker, the environment will be different to prevent use of samples from different runs. </li>
+    <li> There is a known issue where the Docker container gets killed 
+during training or evaluation of the model due to running out of memory.
+ If this happens, you need to increase the RAM available to your Docker 
+instance. We successfully ran everything with 8 GB of RAM. </li>
+    <li> If the checker fails, it will display an appropriate error 
+message. If the check was successful the terminal will show your score 
+and whether your solution passed, then a file called <code>results_check.byte</code>
+ will be generated. You should upload this file together with your 
+source code and a description of your solution to the project server in 
+order to pass. The checker will also generate a <code>.mp4</code> file giving a video of some of your evaluation episodes, which does not need to be submitted. </li>
+    <li> The submissions to the server are limited to 18 per team, and to 6 within 24h timeframe per team. </li>
+</ol>
+
+<h4>Grading</h4>
+
+
+
+<p>When handing in the task, you need to select which of your 
+submissions will get graded and provide a short description of your 
+approach. This has to be done <strong>individually by each member</strong> of the team.
+    Your submisssion is graded as either <strong>pass</strong> or <strong>fail</strong>. A complete submission typically consists of the following <strong>three components</strong>:
+     </p><ul>
+      <li><strong>Submission file</strong>: The <code>results_check.byte</code> file generated by the <code>runner.sh</code> script which tries to execute your code and checks whether it fulfills the requirements of the task.</li>
+      <li>Your <strong>code</strong> in form of a .py or .zip file. The source code must be runnable and able to reproduce your uploaded <code>results_check.byte</code> file. </li>
+      <li>A <strong>description</strong> of your approach that is 
+consistent with your code. If you do not hand in a description of your 
+approach, you may obtain zero points regardless of how well your 
+submission performs.</li>
+    </ul>
+To pass the task, your submission needs to be complete and <strong>outperform the baseline</strong> in terms of PUBLIC score.
+Some tasks only have a single score on which you have to improve upon the baseline. Other tasks have a PUBLIC and PRIVATE score.
+The PRIVATE score determines your position on the server leaderboard but is irrelevant for grading.
+<p></p>
+
+
+
+<div class="alert alert-danger">
+  <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>
+  Make sure that you properly hand in the task, otherwise you may obtain
+ zero points for this task. If you successfully completed the hand-in, 
+you should see the respective task on the overview page shaded in green.
+</div>
+
+<h4>Frequently asked questions</h4>
+<h5><span class="glyphicon glyphicon-record"></span> Which programming language am I supposed to use? What tools am I allowed to use?</h5>
+<p> You should implement your solutions in Python 3.8. You can use any 
+publicly available code, but you should specify the source as a comment 
+in your code.</p>
+
+<h5><span class="glyphicon glyphicon-record"></span> Am I allowed to use methods that were not taught in the class?</h5>
+<p>Yes. Nevertheless, the baselines were designed to be solvable based 
+on the material taught in the class up to the second week of each task.</p>
+
+<h5><span class="glyphicon glyphicon-record"></span> In what format should I submit the code?</h5>
+<p>If you changed only the solution file, you can submit it alone. If 
+you changed other files too, then you should submit all changed files in
+ a zip of size max. 1 MB. You can assume that all files from the handout
+ that you have not changed will be available to your code.</p>
+
+<h5><span class="glyphicon glyphicon-record"></span> Will you check / run my code?</h5>
+<p>We will check your code and compare it with other submissions. If 
+necessary, we will also run your code. Please make sure that your code 
+is runnable and your results are reproducible (fix the random seeds, 
+etc.). Provide a readme if necessary.</p>
+
+<h5><span class="glyphicon glyphicon-record"></span> Should I include the handout data in the submission?</h5>
+No. You can assume the data will be available under the same path as in the handout folder.
+<!--For example, you could read in the dataset as:-->
+<!--<pre>import pandas as pd<br>df_train = pd.read_csv('train.csv')</pre>-->
+
+<h5><span class="glyphicon glyphicon-record"></span> Can you help me solve the task? Can you give me a hint?</h5>
+<p>As the tasks are a graded part of the class, <strong>we cannot help you solve them</strong>. However, feel free to ask general questions about the course material during or after the exercise sessions.</p>
+
+<h5><span class="glyphicon glyphicon-record"></span> Can you give me a deadline extension?</h5>
+<div class="alert alert-danger">
+  <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>
+  We do not grant any deadline extensions!
+</div>
+
+<h5><span class="glyphicon glyphicon-record"></span> Can I post on Moodle as soon as have a question?</h5>
+<p>This is highly discouraged. Remember that collaboration with other teams is prohibited. Instead,</p>
+<ul>
+<li>Read the details of the task thoroughly.</li>
+<li>Review the frequently asked questions.</li>
+<li>If there is another team that solved the task, spend more time thinking.</li>
+<li>Discuss it with your team-mates.</li>
+</ul>
+
+<h5><span class="glyphicon glyphicon-record"></span> When will I receive the project grades?</h5>
+<p>We will publish the project grades before the exam the latest.</p>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="submission">
+    
+    <div class="panel panel-default">
+      <div class="panel-body">
+	<h2><i class="fa fa-spin fa-spinner fa-fw" aria-hidden="true"></i> 2. Submissions <small>closes on Sunday 19 Dec 2021 20:00</small></h2>
+
+	
+
+	<div class="alert alert-info" role="alert">
+	  <h3><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Submission rules</h3>
+	  <ul>
+	    <li>For this task, you submit solutions as part of the group 'Bayesship'.</li>
+	    <li>Your group has a joint total 18 submissions. You have already used 5 submissions.</li>
+	    <li>Your group may only submit if you have submitted at most 18 
+submissions in the last 12:00:00 hours. In this time span, you have 
+submitted 5 solutions.</li>
+	    <li>Submit wisely as failed submissions count for both limits.</li>
+	    <li>Your may submit solutions until Sunday 19 Dec 2021 20:00. We cannot provide deadline extensions.</li>
+	  </ul>
+	</div>
+	<hr>
+	<h3>New submission</h3>
+	
+	
+
+	<form method="POST" enctype="multipart/form-data">
+	  <input id="sf-csrf_token" name="sf-csrf_token" type="hidden" value="IjBkODQwYjdlNjZkYTZjZDA5MDJhZDZjMWU0MjZkZDYzMzFhMGI4YzYi.YbJ4_w.r9UKH4oTvKG5Fpmvat7HevBUOnw">
+
+
+	  <div class="form-group ">
+	    <label for="sf-file" class="control-label">Your submission</label>
+	    <input class="form-control" id="sf-file" name="sf-file" required="" type="file">
+	    
+	    <span id="helpBlock" class="help-block">Please upload a valid submission file. (Total max 1 MB)</span>
+	    
+	  </div>
+
+		<div class="form-group ">
+	    <label for="sf-source_code" class="control-label">Your code</label>
+	    <input class="form-control" id="sf-source_code" name="sf-source_code" required="" type="file">
+	    
+	    <span id="helpBlock" class="help-block">Please upload a source code file (.py, .zip, etc.; Total max 1 MB).</span>
+	    
+	  </div>
+
+	  <div class="form-group ">
+	    <label for="sf-description" class="control-label">Description</label>
+	    <input class="form-control" id="sf-description" name="sf-description" type="text">
+	    
+	    <span id="helpBlock" class="help-block">Please provide a description of your submission.</span>
+	    
+	  </div>
+	  <input class="btn btn-primary" id="sf-submit" name="sf-submit" type="submit" value="Add submission">
+	</form>
+
+	
+
+
+	
+	<hr>
+	<h3>Your submissions <small><a href="javascript:window.location.reload(true)">refresh</a></small></h3>
+
+	<div style="max-height:400px;overflow:auto;">
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+		<th>#</th>
+		<th>Filename</th>
+		<th>Source Code</th>
+		<th>Description</th>
+		<th>Author</th>
+		<th>Date</th>
+		<th>Status</th>
+		<th>Score</th>
+        
+		<th>Handin</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      
+	      <tr>
+		<th scope="row">5</th>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b23ac83e8116000b4df00a" target="_blank">results_check.byte</a></td>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b23ac83e8116000b4df00c" target="_blank">solution.py</a></td>
+		<td>pi learing rate 20e-3, value learning rate 15e-3</td>
+		<td>timoscho</td>
+		<td>2021-12-09 18:20</td>
+		<td>
+		  
+		  <i class="fa fa-fw fa-check"></i> Completed in 0:00:00.258000
+		  </td>
+		<td>223.13</td>
+        
+        <!---->
+		
+		<td>
+		  
+		  <a href="https://project.las.ethz.ch/task4/select/61b23ac83e8116000b4df00e">Select</a>
+		  
+		</td>
+		
+	      </tr>
+	      
+	      <tr>
+		<th scope="row">4</th>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b22bfe3e8116000c96afb2" target="_blank">results_check.byte</a></td>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b22bfe3e8116000c96afb4" target="_blank">solution.py</a></td>
+		<td>pi learing rate 15e-3, value learning rate 10e-3</td>
+		<td>timoscho</td>
+		<td>2021-12-09 17:17</td>
+		<td>
+		  
+		  <i class="fa fa-fw fa-check"></i> Completed in 0:00:00.250000
+		  </td>
+		<td>222.02</td>
+        
+        <!---->
+		
+		<td>
+		  
+		  <i class="fa fa-fw fa-check"></i> <b>Selected</b>
+		  
+		</td>
+		
+	      </tr>
+	      
+	      <tr>
+		<th scope="row">3</th>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b21e063e8116000d5ebf7e" target="_blank">results_check.byte</a></td>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b21e063e8116000d5ebf80" target="_blank">solution.py</a></td>
+		<td>Advantages function, layerwidth 128, 4 layers</td>
+		<td>timoscho</td>
+		<td>2021-12-09 16:17</td>
+		<td>
+		  
+		  <i class="fa fa-fw fa-check"></i> Completed in 0:00:00.254000
+		  </td>
+		<td>198.92</td>
+        
+        <!---->
+		
+		<td>
+		  
+		  <a href="https://project.las.ethz.ch/task4/select/61b21e063e8116000d5ebf82">Select</a>
+		  
+		</td>
+		
+	      </tr>
+	      
+	      <tr>
+		<th scope="row">2</th>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b217073e8116000d5ebf7a" target="_blank">results_check.byte</a></td>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b217073e8116000d5ebf7c" target="_blank">solution.py</a></td>
+		<td>Replacing advantage function with TD residual</td>
+		<td>timoscho</td>
+		<td>2021-12-09 15:47</td>
+		<td>
+		  
+		  <i class="fa fa-fw fa-check"></i> Completed in 0:00:00.260000
+		  </td>
+		<td>198.5</td>
+        
+        <!---->
+		
+		<td>
+		  
+		  <a href="https://project.las.ethz.ch/task4/select/61b217073e8116000d5ebf7d">Select</a>
+		  
+		</td>
+		
+	      </tr>
+	      
+	      <tr>
+		<th scope="row">1</th>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b214343e8116000d5ebf70" target="_blank">results_check.byte</a></td>
+		<td><a href="https://project.las.ethz.ch/task4/download/61b214343e8116000d5ebf72" target="_blank">solution.py</a></td>
+		<td>First implementation of all todos</td>
+		<td>timoscho</td>
+		<td>2021-12-09 15:35</td>
+		<td>
+		  
+		  <i class="fa fa-fw fa-check"></i> Completed in 0:00:00.263000
+		  </td>
+		<td>106.7</td>
+        
+        <!---->
+		
+		<td>
+		  
+		  <a href="https://project.las.ethz.ch/task4/select/61b214343e8116000d5ebf74">Select</a>
+		  
+		</td>
+		
+	      </tr>
+	      
+	    </tbody>
+	  </table>
+	</div>
+	<hr>
+	<h3>Leaderboard <small><a href="javascript:window.location.reload(true)">refresh</a></small></h3>
+
+	<div style="max-height:400px;overflow:auto;">
+	  <table class="table table-striped table-condensed">
+	    <thead>
+	      <tr>
+		<th>#</th>
+		<th>Group name</th>
+		<th>Score</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      
+	      <tr class="success">
+		<th>1</th>
+		<td>Nordicpaimafia</td>
+		<td>233.32</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>2</th>
+		<td>Theteam</td>
+		<td>229.16</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>3</th>
+		<td>Paimpi</td>
+		<td>228.84</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>4</th>
+		<td>Reinforcers</td>
+		<td>228.34</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>5</th>
+		<td>Gpa</td>
+		<td>227.8</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>6</th>
+		<td>Bayesically</td>
+		<td>226.12</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>7</th>
+		<td>Spaghetticode</td>
+		<td>225.31</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>8</th>
+		<td>Digitalmind</td>
+		<td>225.24</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>9</th>
+		<td>Paipaipai</td>
+		<td>225.11</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>10</th>
+		<td>Author</td>
+		<td>224.95</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>11</th>
+		<td>Ethbots</td>
+		<td>224.64</td>
+	      </tr>
+	      
+	      <tr class="warning">
+		<th>12</th>
+		<td>Bayesship</td>
+		<td>223.13</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>13</th>
+		<td>Holdmybayes</td>
+		<td>222.99</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>14</th>
+		<td>Beatenbyrandom</td>
+		<td>222.72</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>15</th>
+		<td>Luz</td>
+		<td>222.35</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>16</th>
+		<td>Groupname</td>
+		<td>222.18</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>17</th>
+		<td>Posterius</td>
+		<td>221.85</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>18</th>
+		<td>Tgar</td>
+		<td>221.82</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>19</th>
+		<td>Titrekler</td>
+		<td>220.9</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>20</th>
+		<td>Datascience</td>
+		<td>220.38</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>21</th>
+		<td>Randomoonwalk</td>
+		<td>220.03</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>22</th>
+		<td>Fondue</td>
+		<td>220.03</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>23</th>
+		<td>Predictor</td>
+		<td>218.73</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>24</th>
+		<td>Aidream</td>
+		<td>217.03</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>25</th>
+		<td>Yunggausses</td>
+		<td>216.28</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>26</th>
+		<td>Hoppingueee</td>
+		<td>216.23</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>27</th>
+		<td>Rocklb</td>
+		<td>215.29</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>28</th>
+		<td>Noidea</td>
+		<td>214.18</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>29</th>
+		<td>Maxflow</td>
+		<td>212.99</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>30</th>
+		<td>Threems</td>
+		<td>212.22</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>31</th>
+		<td>Xyg</td>
+		<td>211.97</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>32</th>
+		<td>Taskfourmam</td>
+		<td>211.94</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>33</th>
+		<td>Skynet</td>
+		<td>211.85</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>34</th>
+		<td>Faa</td>
+		<td>211.4</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>35</th>
+		<td>Aboutthecones</td>
+		<td>210.66</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>36</th>
+		<td>Buddhism</td>
+		<td>209.55</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>37</th>
+		<td>Trio</td>
+		<td>209.07</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>38</th>
+		<td>Rpg</td>
+		<td>208.82</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>39</th>
+		<td>Tintoretto</td>
+		<td>208.14</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>40</th>
+		<td>Probably</td>
+		<td>207.06</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>41</th>
+		<td>Jzyyds</td>
+		<td>206.53</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>42</th>
+		<td>Onion</td>
+		<td>206.16</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>43</th>
+		<td>Bychance</td>
+		<td>204.16</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>44</th>
+		<td>One</td>
+		<td>203.37</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>45</th>
+		<td>Antodominikvik</td>
+		<td>201.3</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>46</th>
+		<td>Feguto</td>
+		<td>200.89</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>47</th>
+		<td>Probablylearns</td>
+		<td>200.77</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>48</th>
+		<td>Afpai</td>
+		<td>200.62</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>49</th>
+		<td>Blueberry</td>
+		<td>200.62</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>50</th>
+		<td>Goons</td>
+		<td>200.1</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>51</th>
+		<td>Tensorblock</td>
+		<td>199.58</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>52</th>
+		<td>Bugase</td>
+		<td>197.01</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>53</th>
+		<td>Aidiots</td>
+		<td>196.76</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>54</th>
+		<td>Jolapompeu</td>
+		<td>196.23</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>55</th>
+		<td>Infinity</td>
+		<td>195.77</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>56</th>
+		<td>Apple</td>
+		<td>191.52</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>57</th>
+		<td>Alohomora</td>
+		<td>191.41</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>58</th>
+		<td>Panador</td>
+		<td>191.11</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>59</th>
+		<td>Idkrl</td>
+		<td>188.42</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>60</th>
+		<td>Probablyanidiot</td>
+		<td>186.4</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>61</th>
+		<td>Porkybelly</td>
+		<td>184.11</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>62</th>
+		<td>Bayesbakers</td>
+		<td>183.24</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>63</th>
+		<td>Paigroup</td>
+		<td>181.75</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>64</th>
+		<td>Teamcbj</td>
+		<td>180.04</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>65</th>
+		<td>Skiiiiii</td>
+		<td>177.94</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>66</th>
+		<td>Americanpai</td>
+		<td>142.49</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>67</th>
+		<td>Paibot</td>
+		<td>142.44</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>68</th>
+		<td>Gigo</td>
+		<td>135.05</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>69</th>
+		<td>Frequentists</td>
+		<td>126.1</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>70</th>
+		<td>Aibot</td>
+		<td>124.06</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>71</th>
+		<td>Groupjfb</td>
+		<td>123.91</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>72</th>
+		<td>Ram</td>
+		<td>123.65</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>73</th>
+		<td>Niap</td>
+		<td>117.7</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>74</th>
+		<td>Lukas</td>
+		<td>115.49</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>75</th>
+		<td>Getsellerie</td>
+		<td>114.94</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>76</th>
+		<td>Talknerdytome</td>
+		<td>114.51</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>77</th>
+		<td>Applepai</td>
+		<td>114.25</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>78</th>
+		<td>Rafael</td>
+		<td>113.91</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>79</th>
+		<td>Unbiased</td>
+		<td>113.73</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>80</th>
+		<td>Jancokbareng</td>
+		<td>113.71</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>81</th>
+		<td>Hardbayesline</td>
+		<td>112.68</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>82</th>
+		<td>Korindia</td>
+		<td>112.58</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>83</th>
+		<td>Deepseg</td>
+		<td>111.82</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>84</th>
+		<td>Linreg</td>
+		<td>107.03</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>85</th>
+		<td>Deepmind</td>
+		<td>105.62</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>86</th>
+		<td>Spacebar</td>
+		<td>105.43</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>87</th>
+		<td>Eyeinthesky</td>
+		<td>105.19</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>88</th>
+		<td>Nopainogain</td>
+		<td>104.12</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>89</th>
+		<td>Stillddstudents</td>
+		<td>102.8</td>
+	      </tr>
+	      
+	      <tr class="">
+		<th>90</th>
+		<td>Lawinengefahr</td>
+		<td>101.46</td>
+	      </tr>
+	      
+	      <tr class="info">
+		<th>91</th>
+		<td>baseline</td>
+		<td>100.0</td>
+	      </tr>
+	      
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="handin">
+    <div class="panel panel-default">
+      <div class="panel-body">
+	<h2><i class="fa fa-spin fa-spinner fa-fw" aria-hidden="true"></i> 3.
+		Handin
+		<small>closes on Sunday 19 Dec 2021 20:00</small>
+	</h2>
+
+		  <div class="alert alert-info" role="alert">
+			  <h3><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> How to obtain points</h3>
+			  To obtain points for this task, you have to <b>individually</b> hand in the task as follows:
+			  <ul class="">
+				  <li>You need to select one of your group's submissions for grading. You will only be graded on that
+					  submissions.
+				  </li>
+				  <li>You have to write a short report on the approach that you have used. <b>Each student has to
+					  individually write their own report and you are not allowed to share the report with
+					  your other group members.</b></li>
+			  </ul>
+			  If you do not properly hand in the task, you will receive zero points for the task.
+		  </div>
+		  <div class="alert alert-danger">
+			  <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>
+			  Please double check that your handin was successful by refreshing the page after pressing the hand in
+			  button!
+		  </div>
+
+	<hr>
+	<h3>Current status</h3>
+	
+	<div class="alert alert-success" role="alert">
+	  <i class="fa fa-check fa-fw" aria-hidden="true"></i> You have successfully handed in the task and it will be graded.
+	</div>
+	
+	<div class="form-group ">
+	  <label class="control-label"> Submission selected for grading</label>
+	  <input class="form-control" type="text" placeholder="results_check.byte (pi learing rate 15e-3, value learning rate 10e-3) with score 222.02" readonly="readonly">
+	  <p class="help-block">You may select a submission to be graded under "Your submissions".</p>
+	</div>
+	<div class="form-group ">
+	  <label class="control-label"> Report</label>
+	  <textarea class="form-control" type="text" rows="15" placeholder="The functions were implemented straight forward as described in the todos. We used the formulas learned in the lecture and from the paper. This already let us pass the baseline. We did parameter tuning and tried the TD residual instead of the advantage function, with the following results:
+TD function made the results quite worse. Changing the layer width or layer number of the network as well as the steps_per_epoch had no big (positive) impact. Our solution especially improved when we increased the learning rates for policy and value function. pi_lr = 20e-3 and vf_lr = 15e-3 lead to good results." readonly="readonly"></textarea>
+	  <p class="help-block">You may enter a description below.</p>
+	</div>
+
+	<hr>
+	<h3>New report</h3>
+	
+	<form method="POST" enctype="multipart/form-data">
+	  <input id="hf-csrf_token" name="hf-csrf_token" type="hidden" value="IjBkODQwYjdlNjZkYTZjZDA5MDJhZDZjMWU0MjZkZDYzMzFhMGI4YzYi.YbJ4_w.r9UKH4oTvKG5Fpmvat7HevBUOnw">
+	  <div class="form-group ">
+	    <label for="hf-description" class="control-label">New report</label>
+	    <textarea class="form-control" id="hf-description" maxlength="1500" name="hf-description" rows="15"></textarea>
+	    
+	    <span id="helpBlock" class="help-block">Please provide a description of your submission with between 200 and 1500 characters.</span>
+	    
+	  </div>
+	  <div class="">
+	    <div class="checkbox">
+	      <label for="hf-contributed">
+		<input id="hf-contributed" name="hf-contributed" required="" type="checkbox" value="y">
+		I hereby confirm that I have contributed to the work of my team.
+	      </label>
+	    </div>
+	  </div>
+	  <div class="">
+	    <div class="checkbox">
+	      <label for="hf-plagiarism">
+		<input id="hf-plagiarism" name="hf-plagiarism" required="" type="checkbox" value="y">
+		I hereby confirm that I am the sole author of the description above and that I have compiled it in my own words.
+	      </label>
+	    </div>
+	  </div>
+
+	  <input class="btn btn-primary" id="hf-submitbut" name="hf-submitbut" type="submit" value="Hand in">
+	</form>
+	
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  
+
+</body></html>
